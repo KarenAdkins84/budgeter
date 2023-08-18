@@ -19,6 +19,7 @@ export default function AccountDetails() {
       return acc;
     }
   }, 0);
+  
 
   //Calculate total Expenses
   const totalExpenses = account?.transactions?.reduce((acc, transaction) => {
@@ -31,23 +32,13 @@ export default function AccountDetails() {
 
   return (
     <>
-      {account?.transactions?.length <= 0 ? (
-        <>
-          <h2 className="text-center text-red-500 m-10">
-            This Account Doesn't have any transaction
-          </h2>
-
-          <div className="text-center">
-            <Link
-              to={`/add-transaction/${accountID}`}
-              className="relative inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-              <span>New Transaction</span>
-            </Link>
-          </div>
-        </>
-      ) : (
+      
+          {account?.transactions?.length <=0 ? (
+          <h2 className="text-center text-red-500">
+        This Account Doesn't have any Transactions
+        </h2>
+        ) : (
+          
         <>
           <div className="bg-gray-50 pt-12 sm:pt-16">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -72,8 +63,7 @@ export default function AccountDetails() {
                           Total Balance
                         </dt>
                         <dd className=" text-5xl font-bold tracking-tight text-indigo-600">
-                          ${" "}
-                          {totalIncome +
+                          $ ${totalIncome +
                             account?.initialBalance -
                             totalExpenses}
                         </dd>
@@ -97,7 +87,7 @@ export default function AccountDetails() {
                           Total Income
                         </dt>
                         <dd className=" text-5xl font-bold tracking-tight text-green-600">
-                          ${totalIncome + account?.initialBalance}
+                          $ ${totalIncome + account?.initialBalance}
                         </dd>
                         <Link
                           to={`/income-list/`}
@@ -112,12 +102,9 @@ export default function AccountDetails() {
               </div>
             </div>
           </div>
-          <AllTransactions
-            transactions={account?.transactions}
-            accountID={accountID}
-          />
-        </>
-      )}
-    </>
+          <AllTransactions transactions={account?.transactions} />
+          </>
+        )}
+      </>
   );
 }

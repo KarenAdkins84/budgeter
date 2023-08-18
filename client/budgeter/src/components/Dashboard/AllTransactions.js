@@ -1,15 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
- const AllTransactions = ({ transactions, accountID }) => {
+const AllTransactions = ({ transactions, accountID }) => {
   return (
     <>
-  
-      {transactions?.length <=0? (
-      <h2 className="text-center text-red-500">
-        This Account Doesn't have any Transactions
-        </h2>
-      ): (
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
@@ -82,7 +76,7 @@ import { Link } from "react-router-dom";
                                 <div className="font-medium text-gray-900">
                                   {transaction?.name}
                                 </div>
-                                {/* <div className="text-gray-500">Emma</div> */}
+                                <div className="text-gray-500">John Doe</div>
                               </div>
                             </div>
                           </td>
@@ -120,7 +114,7 @@ import { Link } from "react-router-dom";
             </div>
           </div>
         </div>
-      </div>)}
+      </div>
       </>
   );
 };

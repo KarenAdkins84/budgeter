@@ -92,6 +92,35 @@ const reducer = (state, action) => {
 const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
+//register action
+const registerUserAction = async formData => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const res = await axios.post(
+      `${API_URL_USER}/register`,
+      formData,
+      config
+    );
+    if (res?.data?.status === "success") {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
+    }
+    //Redirect
+    window.location.href = "/login";
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAIL,
+      payload: error?.response?.data?.message,
+    });
+  }
+};
+
   //login action
   const loginUserAction = async formData => {
     const config = {
@@ -112,35 +141,6 @@ const AuthContextProvider = ({ children }) => {
     } catch (error) {
       dispatch({
         type: LOGIN_FAILED,
-        payload: error?.response?.data?.message,
-      });
-    }
-  };
-
-  //register action
-  const registerUserAction = async formData => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const res = await axios.post(
-        `${API_URL_USER}/register`,
-        formData,
-        config
-      );
-      if (res?.data?.status === "success") {
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: res.data,
-        });
-      }
-      //Redirect
-      window.location.href = "/login";
-    } catch (error) {
-      dispatch({
-        type: REGISTER_FAIL,
         payload: error?.response?.data?.message,
       });
     }
